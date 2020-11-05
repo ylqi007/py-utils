@@ -7,10 +7,10 @@ bus
 train
 truck
 boat
-traffic light
-fire hydrant
-stop sign
-parking meter
+trafficlight
+firehydrant
+stopsign
+parkingmeter
 bench
 bird
 cat
@@ -30,15 +30,15 @@ suitcase
 frisbee
 skis
 snowboard
-sports ball
+sportsball
 kite
-baseball bat
-baseball glove
+baseballbat
+baseballglove
 skateboard
 surfboard
-tennis racket
+tennisracket
 bottle
-wine glass
+wineglass
 cup
 fork
 knife
@@ -50,22 +50,22 @@ sandwich
 orange
 broccoli
 carrot
-hot dog
+hotdog
 pizza
 donut
 cake
 chair
 sofa
-potted plant
+pottedplant
 bed
-dining table
+diningtable
 toilet
 tv
 laptop
 mouse
 remote
 keyboard
-cell phone
+cellphone
 microwave
 oven
 toaster
@@ -75,6 +75,6 @@ book
 clock
 vase
 scissors
-teddy bear
-hair drier
+teddybear
+hairdrier
 toothbrush

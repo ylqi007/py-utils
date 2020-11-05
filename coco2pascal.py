@@ -16,16 +16,20 @@ COCO_2017 = "dataset/coco_2017.names"
 PRE_DIR = "/tensorflow-yolov3/"
 
 CUR_DIR = os.getcwd()
-DATA_DIR = "/home/yq0033/work/PycharmProjects/"
+# DATA - Lab207-1080
+# DATA_DIR = "/home/yq0033/work/PycharmProjects/"
+# DATA - Lab207-1080
+DATA_DIR = "/home/yq0033/work/"
 
 # COCO 2017, TRAIN
 COCO_2017_TRAIN_IMG_DIR = "DATA/COCO/train2017/"
-COCO_2017_TRAIN_ANNO_DIR = "DATA/COCO/annotations_trainval/instances_train2017.json"
-COCO_2017_TRAIN_to_VOC_ANNO_DIR = "DATA/COCO/train2017_with_size.txt"
+# COCO_2017_TRAIN_ANNO_DIR = "DATA/COCO/annotations_trainval/instances_train2017.json"
+COCO_2017_TRAIN_ANNO_DIR = "DATA/COCO/annotations_trainval2017/annotations/instances_train2017.json"
+COCO_2017_TRAIN_to_VOC_ANNO_DIR = "DATA/COCO/train2017.txt"
 
 # COCO 2017, VAL
 COCO_2017_VAL_IMG_DIR = "DATA/COCO/val2017/"
-COCO_2017_VAL_ANNO_DIR = "DATA/COCO/annotations_trainval/instances_val2017.json"
+COCO_2017_VAL_ANNO_DIR = "DATA/COCO/annotations_trainval2017/annotations/instances_val2017.json"
 COCO_2017_VAL_to_VOC_ANNO_DIR = "DATA/COCO/val2017.txt"
 
 # COCO 2017, TEST
@@ -49,20 +53,19 @@ def coco2voc(coco_img_dir, coco_anno_dir, voc_anno_dir):
     coco = COCO(coco_anno_dir)
     # samples in imgToAnns: [386134, 97585, 429530, 31749, 284282]
     # print("========== img ids ==========")
-    sampleImageID = [429530, 31749, 284282]
+    sampleImageID = [386134, 97585, 429530, 31749, 284282]      # samples for demo
     vocFile = open(voc_anno_dir, 'a')
     print("Number of images: ", len(coco.imgs))
     print("Number of object: ", len(coco.anns))
     print("Number of imgToAnnos: ", len(coco.imgToAnns))
     for imgId in coco.imgs.keys():
-        # if imgId not in sampleImageID:
+        # if imgId not in sampleImageID:    # Just samples
         #     # continue
         #     pass
         # print("---- split line -----")
         annos = coco.imgToAnns[imgId]  # annos of objects in one image
-        if(len(annos) == 0):
+        if len(annos) == 0:
             continue
-        # print("image file_name: ", coco.imgs[imgId]["file_name"])
         imagePath = os.path.join(PRE_DIR, coco_img_dir, coco.imgs[imgId]["file_name"])
         # print(imagePath)
         # print(os.path.exists(imagePath))
@@ -135,14 +138,14 @@ def get_coco_2017(file=COCO_2017):
 
 if __name__ == "__main__":
     # TRAIN
-    # coco2voc(coco_img_dir=COCO_2017_TRAIN_IMG_DIR,
-    #          coco_anno_dir=COCO_2017_TRAIN_ANNO_DIR,
-    #          voc_anno_dir=COCO_2017_TRAIN_to_VOC_ANNO_DIR)
+    coco2voc(coco_img_dir=COCO_2017_TRAIN_IMG_DIR,
+             coco_anno_dir=COCO_2017_TRAIN_ANNO_DIR,
+             voc_anno_dir=COCO_2017_TRAIN_to_VOC_ANNO_DIR)
     # VAL
     coco2voc(coco_img_dir=COCO_2017_VAL_IMG_DIR,
              coco_anno_dir=COCO_2017_VAL_ANNO_DIR,
              voc_anno_dir=COCO_2017_VAL_to_VOC_ANNO_DIR)
-    # Test
+    # Test. Since there are no annotations for test dataset, there is no use to run the following.
     # coco2voc(coco_img_dir=COCO_2017_TEST_IMG_DIR,
     #          coco_anno_dir=COCO_2017_TEST_ANNO_DIR,
     #          voc_anno_dir=COCO_2017_TEST_to_VOC_ANNO_DIR)
