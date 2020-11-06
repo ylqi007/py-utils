@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 # Project Name: py-utils - 当前项目的名称。 
 # Author: yq0033
@@ -13,23 +13,20 @@ from pycocotools.coco import COCO
 COCO_FULL = "dataset/coco_full.names"
 COCO_2017 = "dataset/coco_2017.names"
 
-PRE_DIR = "/tensorflow-yolov3/"
-
+# PRE_DIR = "/tensorflow-yolov3/"
+PRE_DIR = "/home/yq0033/work/"
 CUR_DIR = os.getcwd()
-# DATA - Lab207-1080
-# DATA_DIR = "/home/yq0033/work/PycharmProjects/"
-# DATA - Lab207-1080
+# DATA - Lab207-2, 1080
 DATA_DIR = "/home/yq0033/work/"
 
 # COCO 2017, TRAIN
 COCO_2017_TRAIN_IMG_DIR = "DATA/COCO/train2017/"
-# COCO_2017_TRAIN_ANNO_DIR = "DATA/COCO/annotations_trainval/instances_train2017.json"
-COCO_2017_TRAIN_ANNO_DIR = "DATA/COCO/annotations_trainval2017/annotations/instances_train2017.json"
+COCO_2017_TRAIN_ANNO_DIR = "DATA/COCO/annotations_trainval/instances_train2017.json"
 COCO_2017_TRAIN_to_VOC_ANNO_DIR = "DATA/COCO/train2017.txt"
 
 # COCO 2017, VAL
 COCO_2017_VAL_IMG_DIR = "DATA/COCO/val2017/"
-COCO_2017_VAL_ANNO_DIR = "DATA/COCO/annotations_trainval2017/annotations/instances_val2017.json"
+COCO_2017_VAL_ANNO_DIR = "DATA/COCO/annotations_trainval/instances_val2017.json"
 COCO_2017_VAL_to_VOC_ANNO_DIR = "DATA/COCO/val2017.txt"
 
 # COCO 2017, TEST
@@ -39,20 +36,24 @@ COCO_2017_TEST_to_VOC_ANNO_DIR = "DATA/COCO/test2017.txt"
 
 
 def coco2voc(coco_img_dir, coco_anno_dir, voc_anno_dir):
+    print("## coco_img_dir: ", coco_img_dir)
     if not os.path.exists(coco_img_dir):
         print("COCO Image Dir: {}".format(coco_img_dir))
         raise ValueError("COCO image dir does not exist.")
 
+    print("## coco_anno_dir: ", coco_anno_dir)
     if not os.path.exists(coco_anno_dir):
         print("COCO Anno Dir: {}".format(coco_anno_dir))
         raise ValueError("COCO anno dir does not exist.")
 
     id_to_class_full = get_coco_full()
     class_to_id_2017 = get_coco_2017()
-
+    print('============= id to class full ================')
+    print(id_to_class_full)
+    print('============= class to id 2017 ================')
+    print(class_to_id_2017)
     coco = COCO(coco_anno_dir)
     # samples in imgToAnns: [386134, 97585, 429530, 31749, 284282]
-    # print("========== img ids ==========")
     sampleImageID = [386134, 97585, 429530, 31749, 284282]      # samples for demo
     vocFile = open(voc_anno_dir, 'a')
     print("Number of images: ", len(coco.imgs))
@@ -115,10 +116,10 @@ def get_coco_full(file=COCO_FULL):
         lines = f.readlines()
         for line in lines:
             items = line.split('\t')
-            if items[-2] is '-':
+            if items[-2] is '-':    # no in 80 classes
                 continue
             _id = int(items[0])
-            _name = items[-2]
+            _name = items[-2].replace(" ", "")
             id_to_name[_id] = _name
     # for id in id_to_name:
     #     print(id, id_to_name[id])
@@ -142,9 +143,9 @@ if __name__ == "__main__":
              coco_anno_dir=COCO_2017_TRAIN_ANNO_DIR,
              voc_anno_dir=COCO_2017_TRAIN_to_VOC_ANNO_DIR)
     # VAL
-    coco2voc(coco_img_dir=COCO_2017_VAL_IMG_DIR,
-             coco_anno_dir=COCO_2017_VAL_ANNO_DIR,
-             voc_anno_dir=COCO_2017_VAL_to_VOC_ANNO_DIR)
+    # coco2voc(coco_img_dir=COCO_2017_VAL_IMG_DIR,
+    #          coco_anno_dir=COCO_2017_VAL_ANNO_DIR,
+    #          voc_anno_dir=COCO_2017_VAL_to_VOC_ANNO_DIR)
     # Test. Since there are no annotations for test dataset, there is no use to run the following.
     # coco2voc(coco_img_dir=COCO_2017_TEST_IMG_DIR,
     #          coco_anno_dir=COCO_2017_TEST_ANNO_DIR,

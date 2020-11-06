@@ -15,7 +15,7 @@ import numpy as np
 import collections
 
 
-def read_classes_name(coco_classes="./dataset/coco_2017.names"):
+def read_classes_name(coco_classes="./dataset/coco_2017.names.backup"):
     if not os.path.exists(coco_classes):
         raise ValueError("File {} does not exist.".format(coco_classes))
     id_to_class = {}
