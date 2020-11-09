@@ -1,3 +1,5 @@
 
+.idea/
+
 # In each platform, the DATA has its own directory, therefore untrack `DATA/` folder
 DATA/
