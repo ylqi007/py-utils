@@ -5,4 +5,7 @@
 
 
 ## Usage
-1. 
+- [ ] 将文件路径参数化
+```bash
+python coco2pascal.py
+```
