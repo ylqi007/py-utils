@@ -15,6 +15,10 @@ Analysis:
 1. `coco.imgToAnns` is a dictionary, with key the `img_id` and value the `anns` for that image. Only images in this key set has annotations.
 2. `coco.anns` is annotations in all images, and each annotation is an object.
 
+Note:
+
+1. The parameters in `coco2pascal.py` file can be changed according to specific images and annotations directory.
+
 
 
 ## Explanation
@@ -45,10 +49,9 @@ All annotations share the same basic data structure below:
 "licenses": [license]
 ```
     * 其中 "info" 定义一些数据库信息，比如本版，年份等等。
-    * 其中 "images" 定义了一个 list，每个 element 对应一张 image 的信息，包括 id, width, height,
+    * 其中 "images" 定义了一个 list，每个 `image` element 对应一张 image 的信息，包括 id, width, height,
     file_name, coco_url 等等。
-    * 其中 "annotations" 定义了一个 list，每个 element 对应一张 image 的标注信息，对于每种 task，
-    标注信息又有些区别。
+    * 其中 "annotations" 定义了一个 list，每个 `annotation` element 对应一个 object 的标注信息，比如这个 object 对应的 image，bbox 信息等等；对于每种 task，标注信息又有些区别。
 
 The data structure specific to the various annotation types are described below:
 
