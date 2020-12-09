@@ -25,7 +25,7 @@ def read_classes_name(coco_classes="./dataset/coco_2017.names"):
     return id_to_class
 
 
-def statistic_frequency(id_to_class=None, dir="./DATA/COCO/", file="train2017.txt"):
+def statistic_frequency(id_to_class=None, dir="./DATA/COCO/", file="coco_train2017.txt"):
     file = os.path.join(dir, file)
     if not os.path.exists(file):
         raise ValueError("File {} does not exist.".format(file))
@@ -49,7 +49,10 @@ def statistic_frequency(id_to_class=None, dir="./DATA/COCO/", file="train2017.tx
         i += 1
         if i == 20:
             break
-    # print(keep_classes)
+    print(keep_classes)
+    with open("dataset/coco_top20.names", "w") as file:
+        for key in keep_classes:
+            file.writelines(keep_classes[key][0] + "\n")
     return keep_classes
 
 
@@ -62,12 +65,12 @@ def read_class_names(class_file_name):
     return names
 
 
-def select_top20_classes(dir="./DATA/COCO/", file="val2017.txt"):
-    keep_classes = statistic_frequency(id_to_class=None, dir="./DATA/COCO/", file="val2017.txt")
+def select_top20_classes(dir="./DATA/COCO/", file="coco_val2017.txt"):
+    keep_classes = statistic_frequency(id_to_class=None, dir="./DATA/COCO/", file="coco_train2017.txt")
     print(keep_classes.keys())
     print(keep_classes.items())
     # filter
-    filtered_voc_file = open("./DATA/COCO/val2017_top20.txt", 'w')
+    filtered_voc_file = open("./DATA/COCO/coco_val2017_top20.txt", 'w')
     file = os.path.join(dir, file)
     with open(file, 'r') as data:
         for anno in data:
