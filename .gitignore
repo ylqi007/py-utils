@@ -10,4 +10,5 @@ DATA/
 # Ignore some files
 prog.py
 co2voc.py
+coco2pascal.py
 
