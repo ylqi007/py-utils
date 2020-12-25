@@ -10,9 +10,12 @@
 
 ## Usage
 
-### 1. Convert COCO annotations to VOC format
+### 1. Convert COCO annotations to Pascal VOC format
+
+The annotation files provided by COCO official website is JSON, while we may need Pascal VOC format for training SSD or YOLOv3. Therefore I need change annotations from JSON to XML.
+
 ```bash
-python coco2pascal.py
+./coco2voc.sh
 ```
 
 Analysis:
@@ -21,7 +24,8 @@ Analysis:
 
 Note:
 
-1. The parameters in `coco2pascal.py` file can be changed according to specific images and annotations directory.
+1. The parameters in `coco2voc.sh` file can be changed according to specific images and annotations directory.
+2. The classes provided in `COCO.cats` is 91 classes which is according to the paper. But COCO_2014 and COCO_2017, there are only 80 classes, therefore some classes need to delete.
 
 
 

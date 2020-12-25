@@ -4,7 +4,7 @@
 # DATA="/home/yq0033/work/PycharmProjects/DATA"
 
 # Lab207 - 2080Ti
-DATA="/home/yq0033/work/DATA/"
+DATA="/home/ylqi007/work/DATA"
 #if [ ! -d DATA ]; then
 #  ln -s ${DATA} .
 #else

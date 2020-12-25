@@ -40,10 +40,9 @@ import re
 import argparse
 import xml.etree.ElementTree as ET
 from scripts import utils
-from statistics import statistic_frequency
-from pprint import pprint
 
 from pycocotools.coco import COCO
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--coco_json', help='The path of coco json file.')
@@ -57,17 +56,12 @@ def json_to_xml(src_json, xml_dir):
         raise ValueError("COCO image dir `{}` does not exist.".format(src_json))
 
     # Read the total 91 classes
-    classes91 = utils.read_class_names('./DATA/COCO/classes_paper.txt')
+    classes91 = utils.read_class_names('./DATA/COCO/classes_paper.txt') # id -> class name
     # Read the 80 classes need to keep
-    classes80 = utils.read_class_names('./DATA/COCO/classes_2017.txt')
-    reversed_classes80 = utils.reverse_dict(classes80)
-    print(classes91)
-    print()
-    print(classes80)
-    print()
-    print(reversed_classes80)
+    classes80 = utils.read_class_names('./DATA/COCO/classes_2017.txt')  # id --> class name
+    reversed_classes80 = utils.reverse_dict(classes80)  # class name --> id
+
     coco = COCO(src_json)
-    # get_details(coco)
 
     print('=======================')
     print(coco.cats)
@@ -77,8 +71,18 @@ def json_to_xml(src_json, xml_dir):
 
 
 def get_img_anno(img, anns, classes91, reversed_classes80, cats):
+    """
+    Get annotation for an image in COCO.
+    # TODO: Specify which info or tags will be saved.
+    :param img:
+    :param anns:
+    :param classes91:
+    :param reversed_classes80:
+    :param cats:
+    :return:
+    """
     img_anns = {}
-    img_anns['folder'] = "train2017"    ## TODO: Need to change manually
+    img_anns['folder'] = "train2017"    # TODO: Need to change manually
     img_anns['filename'] = img['file_name']
     img_anns['size'] = {}
     img_anns['size']['height'] = img['height']
@@ -87,12 +91,12 @@ def get_img_anno(img, anns, classes91, reversed_classes80, cats):
     img_anns['objects'] = []
     for ann in anns:
         name = re.sub('\W', "", cats[ann['category_id']]['name'])
-        if name not in reversed_classes80:
+        if name not in reversed_classes80:  # TODO: which classes will be kept or discard
             print(ann['category_id'], classes91[ann['category_id']])
             continue
         obj = {}
-        obj['name'] = name  # TODO: ann.category_id to class name
-        obj['bndbox'] = {}       # TODO: keep name, not id in 80 classes
+        obj['name'] = name
+        obj['bndbox'] = {}
         obj['bndbox']['xmin'] = int(ann['bbox'][0])
         obj['bndbox']['ymin'] = int(ann['bbox'][1])
         obj['bndbox']['xmax'] = int(ann['bbox'][0] + ann['bbox'][2])
@@ -103,6 +107,13 @@ def get_img_anno(img, anns, classes91, reversed_classes80, cats):
 
 
 def create_xml(dir=None, ann=None):
+    """
+    Create an XML file for a specific image. The tags are specified.
+    # TODO: The tags are specified. If you need other tags, you need change this function.
+    :param dir: The directory where the xmls will be saved in.
+    :param ann: The annotation for an image.
+    :return:
+    """
     if ann is None:
         return
     root = ET.Element('annotation')
@@ -113,6 +124,14 @@ def create_xml(dir=None, ann=None):
         if k is 'filename':
             filename = ET.SubElement(root, 'filename')
             filename.text = ann['filename']
+        if k is 'size':
+            size = ET.SubElement(root, 'size')
+            width = ET.SubElement(size, 'width')
+            width.text = str(ann['size']['width'])
+            height = ET.SubElement(size, 'height')
+            height.text = str(ann['size']['height'])
+            depth = ET.SubElement(size, 'depth')
+            depth.text = str(ann['size']['depth'])
         if k is 'objects':
             for obj in ann[k]:
                 object = ET.SubElement(root, 'object')
