@@ -1,7 +1,13 @@
-
+.gitignore
 .idea/
 
 _test.py
 # In each platform, the DATA has its own directory, therefore untrack `DATA/` folder
 DATA/
 **/**.pyc
+
+
+# Ignore some files
+prog.py
+
+co2voc.py
