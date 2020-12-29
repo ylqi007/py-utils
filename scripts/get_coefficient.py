@@ -30,15 +30,15 @@ def get_coefficient(freqs):
     scale2 = scale1 / scale1[0]
     scale3 = scale1 / scale1[-1]
     scale4 = scale1 * len(scale1)
-    print("Original Scale: ", freqs)
-    print("Scale 1: ", scale1)
-    print("Scale 2: ", scale2)
-    print("Scale 3: ", scale3)
-    print("Scale 4: ", scale4)
-    # print("Scale 1: ", list(scale1))
-    # print("Scale 2: ", list(scale2))
-    # print("Scale 3: ", list(scale3))
-    # print("Scale 4: ", list(scale4))
+    # print("Original Scale: ", freqs)
+    # print("Scale 1: ", scale1)
+    # print("Scale 2: ", scale2)
+    # print("Scale 3: ", scale3)
+    # print("Scale 4: ", scale4)
+    print("Scale 1: ", list(scale1))
+    print("Scale 2: ", list(scale2))
+    print("Scale 3: ", list(scale3))
+    print("Scale 4: ", list(scale4))
 
 
 if __name__ == '__main__':
