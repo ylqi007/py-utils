@@ -5,7 +5,7 @@
 ## Function
 1. Convert COCO annotations (i.e. json) to voc format for [`YOLOv3-tensorflow`](https://github.com/YunYang1994/tensorflow-yolov3) (i.e. txt file and each line representing an image.)
 2. Statistic the frequency of different objects.
-
+3. According to the frequencies of different scales, calculate the coefficient of each layers.
 
 
 ## Usage
@@ -31,13 +31,17 @@ Note:
 1. The parameters in `coco2voc.sh` file can be changed according to specific images and annotations directory.
 2. The classes provided in `COCO.cats` is 91 classes which is according to the paper. But there are only 80 classes in COCO_2014 and COCO_2017, therefore some 
    classes need to delete.
-
-
+   
 
 ### 2. Statistic the frequencies of each class
 
 - [ ] TODO
 
+
+### 3. Get coefficients of different layers
+```bash
+python scripts/get_coefficient.py
+```
 
 
 ## Explanation
