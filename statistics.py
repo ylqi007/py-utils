@@ -65,8 +65,8 @@ def read_class_names(class_file_name):
     return names
 
 
-def select_top20_classes(dir="./DATA/COCO/", file="coco_val2017.txt"):
-    keep_classes = statistic_frequency(id_to_class=None, dir="./DATA/COCO/", file="coco_train2017.txt")
+def select_top20_classes(dir="./DATA/COCO/", file="val2017.txt"):
+    keep_classes = statistic_frequency(id_to_class=None, dir="./DATA/COCO/", file="train2017.txt")
     print(keep_classes.keys())
     print(keep_classes.items())
     # filter
